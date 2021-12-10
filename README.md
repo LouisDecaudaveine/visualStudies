@@ -1,7 +1,7 @@
-#Visual Studies
+# Visual Studies
 
-##Perlin Noise
+## Perlin Noise
 
-###1.Perlin Noise in 2D
+### 1.Perlin Noise in 2D
 
-###2.Perlin Flow Field
+### 2.Perlin Flow Field
