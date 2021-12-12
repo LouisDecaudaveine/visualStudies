@@ -1,4 +1,5 @@
-
+var mag
+var lineSize
 const inc = 0.1
 const scl = 20
 let col 
@@ -9,21 +10,29 @@ let flowfield;
 let maxLoop = 0
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
-  // createCanvas(200,200)
-  background(0)
+
+//These variables are purely to be changed for perfomance
+  const particleCount = 1
+  const imageWidth = 200
+  const imageHeight = 200
+  mag = 0.9
+  lineSize = 3
+//
+
+  createCanvas(imageWidth, imageHeight);
+  background(255)
   col = floor(width/scl)
   row = floor(height/scl)
   fr = createP('')
 
-  for(let i=0; i<1000; i++){
+  for(let i=0; i<particleCount; i++){
     particles[i] = new Particle() 
   }
   flowfield = new Array(col*row)
 }
 
 function draw() {
-  // background(255)
+  // background()
   let yoff = 0
   for(let y = 0; y<row; y++){
 
@@ -38,7 +47,7 @@ function draw() {
       let angle = r * TWO_PI
       let coX = scl*x 
       let v = p5.Vector.fromAngle(angle)
-      v.setMag(0.9)
+      v.setMag(mag)
       let index = x + y * col
       flowfield[index] = v
       //drawing the vectors of each section of the image
@@ -58,11 +67,11 @@ function draw() {
     }
   }
   zoff += inc*0.1
-  strokeWeight(1)
+  strokeWeight(lineSize)
   for(let i=0; i<particles.length;i++){
     particles[i].follow(flowfield)
     particles[i].update()
-    // particles[i].upHistory()
+    particles[i].upHistory()
     particles[i].show()
     particles[i].edges()
 
