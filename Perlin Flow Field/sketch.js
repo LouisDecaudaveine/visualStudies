@@ -12,14 +12,14 @@ let maxLoop = 0
 function setup() {
 
 //These variables are purely to be changed for perfomance
-  const particleCount = 1
-  const imageWidth = 200
-  const imageHeight = 200
-  mag = 0.9
-  lineSize = 3
+  const particleCount = 10
+  const imageWidth = windowWidth
+  const imageHeight = windowHeight
+  mag = 0.6
+  lineSize = 5
 //
 
-  createCanvas(imageWidth, imageHeight);
+  createCanvas(windowWidth, windowHeight)
   background(255)
   col = floor(width/scl)
   row = floor(height/scl)
@@ -32,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-  // background()
+  background(255)
   let yoff = 0
   for(let y = 0; y<row; y++){
 
@@ -73,12 +73,12 @@ function draw() {
     particles[i].update()
     particles[i].upHistory()
     particles[i].show()
-    particles[i].edges()
+    
 
   }
   fr.html(floor(frameRate()))
   // maxLoop++
-  // if(maxLoop > 10){
+  // if(maxLoop > 50){
   //   noLoop()
   // }
 }

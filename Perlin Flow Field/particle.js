@@ -1,10 +1,11 @@
 function Particle(){
-  this.pos = createVector(random(0,200),random(0,200))
+  this.pos = createVector(random(0,windowWidth),random(0,windowHeight))
   this.vel = createVector(0,0)
   this.acc = createVector(0,0)
   this.prevPos = createVector(0,0)
   this.maxVel = 4
   this.history = [[]]
+  let counter = 0
   this.r = 0
   this.g = 0
   this.b = 0
@@ -35,21 +36,21 @@ function Particle(){
   }
 
   this.show = () => {
-    stroke(this.r,this.g,this.b,50)
+    stroke(this.r,this.g,this.b,255)
     // stroke(0, 50)
-    // noFill()
-    beginShape()
+    noFill()
+    
     
     for(let p = 0 ; p < this.history.length; p++){
+      beginShape();
       let segment = this.history[p]
       for(let i = 0; i < segment.length; i++){
         let pos = segment[i]
         vertex(pos[0],pos[1])
       }
-      
-      
+      endShape();
     }
-    endShape()
+    
     // }
     // line(this.prevPos.x,this.prevPos.y,this.pos.x,this.pos.y)
     
@@ -64,15 +65,39 @@ function Particle(){
   }
 
   this.upHistory = () => {
+
+    //Adding section to history
     let coord = [this.pos.x, this.pos.y]
-    this.history[0].push(coord)
-    // console.log(coord)
+    if(coord[0] < 0 || coord[0] > windowWidth  || coord[1] < 0 || coord[1] > windowHeight){
+      this.history.push([])
+      this.edges()
+      coord = [this.pos.x, this.pos.y]
+    }
+    this.history[this.history.length-1].push(coord)
+    
+    //removing section from history
+    let len = this.hisLen()
+    // console.log(len)
+      if(len > 100){
+        this.history[0] = this.history[0].slice(1)
+      }
+      if(this.history[0].length == 0) this.history = this.history.slice(1);
+
+  }
+
+  this.hisLen = () => {
+    let histLen = 0
+    for(let i = 0; i< this.history.length; i++){
+      let section = this.history[i]
+      histLen += section.length
+    }
+    return histLen
   }
 
   this.edges = () => {
-    if(this.pos.x > width){this.pos.x = 0} 
-    if(this.pos.x < 0){this.pos.x = width} 
-    if(this.pos.y > height){this.pos.y = 0} 
-    if(this.pos.y < 0){this.pos.y = height} 
+    if(this.pos.x > windowWidth){this.pos.x = 0} 
+    if(this.pos.x < 0){this.pos.x = windowWidth} 
+    if(this.pos.y > windowHeight){this.pos.y = 0} 
+    if(this.pos.y < 0){this.pos.y = windowHeight} 
   }
 }
