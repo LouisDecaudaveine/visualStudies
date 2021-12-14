@@ -3,9 +3,8 @@ function Particle(){
   this.vel = createVector(0,0)
   this.acc = createVector(0,0)
   this.prevPos = createVector(0,0)
-  this.maxVel = 4
+  this.maxVel = 10
   this.history = [[]]
-  let counter = 0
   this.r = 0
   this.g = 0
   this.b = 0
@@ -36,11 +35,8 @@ function Particle(){
   }
 
   this.show = () => {
-    stroke(this.r,this.g,this.b,255)
-    // stroke(0, 50)
+    stroke(255,0,0,150)
     noFill()
-    
-    
     for(let p = 0 ; p < this.history.length; p++){
       beginShape();
       let segment = this.history[p]
@@ -50,10 +46,6 @@ function Particle(){
       }
       endShape();
     }
-    
-    // }
-    // line(this.prevPos.x,this.prevPos.y,this.pos.x,this.pos.y)
-    
   }
 
   this.follow = (flowfield) => {
@@ -77,8 +69,7 @@ function Particle(){
     
     //removing section from history
     let len = this.hisLen()
-    // console.log(len)
-      if(len > 100){
+      if(len > 500){
         this.history[0] = this.history[0].slice(1)
       }
       if(this.history[0].length == 0) this.history = this.history.slice(1);

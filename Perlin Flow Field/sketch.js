@@ -32,7 +32,7 @@ function setup() {
 }
 
 function draw() {
-  background(255)
+  background(0)
   let yoff = 0
   for(let y = 0; y<row; y++){
 
@@ -77,6 +77,9 @@ function draw() {
 
   }
   fr.html(floor(frameRate()))
+
+  //UNCOMMOENT TO LIMIT FRAMES RUN
+  
   // maxLoop++
   // if(maxLoop > 50){
   //   noLoop()
