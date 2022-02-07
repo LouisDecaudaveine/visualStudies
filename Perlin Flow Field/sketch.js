@@ -23,6 +23,11 @@ function setup() {
 }
 
 function draw() {
+
+  if (frameCount === 1){
+    capturer.start()
+  }
+
   // background(255)
   let yoff = 0
   for(let y = 0; y<row; y++){
@@ -67,6 +72,15 @@ function draw() {
     particles[i].edges()
 
   }
+
+  if (frameCount < 60*10){
+    capturer.capture(canvas)
+  }else if(frameCount === 60*10){
+    capturer.save()
+    capturer.stop()
+  }
+
+
   fr.html(floor(frameRate()))
   // maxLoop++
   // if(maxLoop > 10){
